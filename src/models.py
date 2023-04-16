@@ -7,23 +7,37 @@ from eralchemy2 import render_er
 
 Base = declarative_base()
 
-class Person(Base):
-    __tablename__ = 'person'
+class Users(Base):
+    __tablename__ = 'users'
     # Here we define columns for the table person
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
-    name = Column(String(250), nullable=False)
+    namename = Column(String(250), nullable=False)
+    email = Column(String, nullable=False)
+    password = Column(String, nullable=False)
 
-class Address(Base):
-    __tablename__ = 'address'
-    # Here we define columns for the table address.
-    # Notice that each column is also a normal Python instance attribute.
+class Planets(Base):
+    __tablename__ = 'planets'
     id = Column(Integer, primary_key=True)
-    street_name = Column(String(250))
-    street_number = Column(String(250))
-    post_code = Column(String(250), nullable=False)
-    person_id = Column(Integer, ForeignKey('person.id'))
-    person = relationship(Person)
+    planet_name = Column(String)
+
+class People(Base):
+    __tablename__ = 'people'
+    id = Column(Integer, primary_key=True)
+    person_name = Column(String)
+
+class Favorites_Planets(Base):
+    __tablename__ = 'favorite_planets'
+    fav_id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey('users.id'))
+    Users = relationship("Users")
+
+class Favorites_People(Base):
+    __tablename__ = 'favorite_people'
+    fav_id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey('users.id'))
+    Users = relationship("Users")
+
 
     def to_dict(self):
         return {}
